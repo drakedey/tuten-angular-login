@@ -1,43 +1,71 @@
-<div class="mt-5 jumbotron">
-  <h1>Welcome, {{ user?.username }}</h1>
-  <hr>
-  <h3>Your info</h3>
-  <ul>
-    <li>Name: {{ user?.name }}</li>
-    <li>Role: {{ user?.role }}</li>
-    <li>Country: {{ user?.country }}</li>
-    <li>Description: {{ user?.description }}</li>
-  </ul>
-<div class="mb-5">
-  <h3>Update Your description</h3>
-  <div *ngIf="onEdit === true" 
-      class="alert alert-dismissible fade show"  
-      [ngClass] = "{'alert-success': editStatus, 'alert-danger': !editStatus}"
-      role="alert">
-        <strong>{{ editStatus ? 'Success!' : 'Error!' }}</strong> {{ editStatus ? 'Description updated Succesfully' : 'Something went wrong!' }}
-        <button type="button" (click) = "this.onEdit = false" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-  <form [formGroup]="descriptionForm" class="form-inline" (ngSubmit)="onDescriptionSubmit(f)">
-      <div class="form-group mx-sm-3 mb-2">
-        <input class="card-text"
-        class="form-control"
-        formControlName="description"/>
-      </div>
-      <button type="submit" class="btn btn-primary mb-2" [disabled] = "descriptionForm.invalid || !descriptionForm.dirty">Update Description</button>
-    </form>
-  <div class="ml-5" *ngIf="descriptionForm.controls.description.invalid && (descriptionForm.controls.description.dirty || descriptionForm.controls.description.touched)">
-    <small class="error-message-inputs" *ngIf="descriptionForm.controls.description.errors.required">
-      This field is required
-    </small>
-  </div>
-</div>
-</div>
-  <div class="container">
+<div class="container">
     <div class="row">
-      <div class="col-12">
-        <app-user-data *ngIf="user.canObserve" [currentUser]="user" [users] = "users"></app-user-data>
-      </div>
+        <div class="col-12">
+            <form novalidate [formGroup]="filterForm" >
+                <div class="form-row text-center">
+                  <div class="form-group col-md-12">
+                    <label for="inputEmail4">Email</label>
+                    <input formControlName="emailContacto" type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                    <div *ngIf="filterForm.controls.emailContacto.invalid && (filterForm.controls.emailContacto.dirty || filterForm.controls.emailContacto.touched)">
+                      <small class="error-message-inputs" *ngIf="filterForm.controls.emailContacto.errors.required">
+                        Este campo es requerido
+                      </small>
+                    </div>
+                  </div>
+                  <div class="col-12 text-center">
+                      <button type="submit" [disabled]="!filterForm.valid || searching" (click) = "onFormSubmit($event)"  class="btn btn-primary">{{ searching ? 'Buscando' : 'Buscar' }}</button>
+                  </div>
+                </div>
+                <div [ngStyle] = "{'display': searching ? 'none':'block'}">
+                   <div class="form-row mt-5">
+                        <div class="form-group col-md-6">
+                            <label for="inputCity">Booking ID</label>
+                            <input formControlName="bookingId" type="number" min="0" class="form-control">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputState">Min Price</label>
+                            <input formControlName="minPrice" type="number" id="min" min="0" class="form-control">
+                            <div *ngIf="errorObj.status">
+                                <small class="error-message-inputs">
+                                    {{ errorObj.message }}
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputState">Max Price</label>
+                            <input formControlName="maxPrice" type="number" id="max" min="0" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-12 text-center">
+                        <button [disabled]="searching" (click) = "onFiltered()" class="btn btn-primary">Filtrar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-12 mt-5">
+            <table class="table table-striped" *ngIf = "(bookingDataFiletered?.length > 0 && !searching); else noItemsToShow">
+                <thead>
+                    <tr>
+                    <th scope="col">BookingId</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Creacion</th>
+                    <th scope="col">Dirección</th>
+                    <th scope="col">Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let booking of bookingDataFiletered">
+                        <td>{{ booking.bookingId }}</td>
+                        <td>{{ booking.clientName }}</td>
+                        <td>{{ booking.bookingTime }}</td>
+                        <td>{{ booking.streetAddres }}</td>
+                        <td>{{ booking.bookingPrice }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ng-template #noItemsToShow>
+                <h3 class="text-center">No hay Bookings para visualizar</h3>
+            </ng-template>
+        </div>
     </div>
-  </div>
+</div>

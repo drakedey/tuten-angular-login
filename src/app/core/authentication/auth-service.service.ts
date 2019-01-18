@@ -1,18 +1,29 @@
 import { Injectable } from '@angular/core';
 import { DataproviderService } from '../http/dataprovider.service';
 import { Observable, Subject } from 'rxjs';
+import { User } from 'src/app/shared/models/user.model';
+import { CURRENT_USER, TOKEN_KEY } from '../constanst';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   loginSubject = new Subject<any>();
-  currentUser: any;
+  currentUser: User = null;
   constructor(
     private dataProvider: DataproviderService,
     ) {
-      this.currentUser = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')) : null;
     }
+
+  setCurrentUser(userObj): User {
+    if(userObj) {
+      const { firstName, lastName, email, sessionTokenBck:token } = userObj;
+      console.log(token);
+      const currentUser = new User(firstName, lastName, email, token);
+      return currentUser;
+    }
+    return null;
+  }
     
   logginUser(email, password): any {
     this.dataProvider.doLoggin(email, password)
@@ -20,23 +31,25 @@ export class AuthService {
       const { error } = response;
       if(error) {
         this.loginSubject.next({ status: false, error });
-        localStorage.setItem('currentUser',  null);
+        localStorage.setItem(CURRENT_USER,  null);
       } else {
         console.log(response);
-        localStorage.setItem('currentUser', JSON.stringify(response));
-        this.loginSubject.next({ status: true })
+        this.currentUser = this.setCurrentUser(response);
+        localStorage.setItem(CURRENT_USER, JSON.stringify(this.currentUser));
+        this.loginSubject.next({ status: true });
       }
     });
     return this.getCurrentUserValue();
   }
 
   getCurrentUserValue(): any {
-    return this.currentUser;
+    const currentUser = localStorage.getItem(CURRENT_USER) ? JSON.parse(localStorage.getItem(CURRENT_USER)) : null;
+    return currentUser;
   }
 
   logout(): void {
     if(this.getCurrentUserValue()) {
-      localStorage.removeItem('currentUser');
+      localStorage.removeItem(CURRENT_USER);
     }
   }
 

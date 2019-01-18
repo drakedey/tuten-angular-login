@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable, of, throwError } from 'rxjs';
-import { APP, TUTEN_LOGIN_URL } from '../constanst';
+import { APP, API_BASE_URL, API_USER, EMAIL_KEY, TOKEN_KEY, API_BOOKING, CURRENT_USER } from '../constanst';
 import { map, catchError } from 'rxjs/operators';
 import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { AuthService } from '../authentication/auth-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,10 @@ import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders } from '@angular
  * the data used at all the aplication.
  */
 export class DataproviderService {
+  headers = {
+    App: APP,
+    Accept: 'aplication/json'
+  };
   constructor(private httpClient: HttpClient) {
    }
 
@@ -26,16 +31,35 @@ export class DataproviderService {
   doLoggin(email: string, password: string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        App: APP,
-        Accept: 'aplication/json',
+        ...this.headers,
         Password: password,
       }),
     }
-    return this.httpClient.put(TUTEN_LOGIN_URL + encodeURIComponent(email),{}, httpOptions)
+    return this.httpClient.put(API_BASE_URL + API_USER + '/' + encodeURIComponent(email),{}, httpOptions)
     .pipe(
       map(data => data),
       catchError((error: HttpErrorResponse) => of(error))
     )
+  }
+
+  getBookingData(emailContact: string): Observable<any> {
+    const currentUser = JSON.parse(localStorage.getItem(CURRENT_USER));
+    const adminemail = currentUser[EMAIL_KEY];
+    const token = currentUser[TOKEN_KEY];
+    const httpOptions = {
+      headers: new HttpHeaders({
+        ...this.headers,
+        adminemail,
+        token
+      }),
+      params: new HttpParams().set('current', 'true')
+    };
+    return this.httpClient.get(API_BASE_URL + API_USER + '/' + encodeURIComponent(emailContact) + API_BOOKING, httpOptions)
+    .pipe(
+      map(data => data),
+      catchError((error: HttpErrorResponse) => of(error))
+    )
+    
   }
 
 }

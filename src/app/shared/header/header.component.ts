@@ -18,12 +18,12 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.userLogged = Boolean(this.authService.getCurrentUserValue());
-    console.log(this.userLogged);
     this.changeDetectorRef.detectChanges();
   }
 
   onLogout(event: any): void {
     this.authService.logout();
+    this.userLogged = Boolean(this.authService.getCurrentUserValue());
     this.router.navigate(['/']);
   }
 

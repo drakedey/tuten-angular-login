@@ -5,12 +5,12 @@
   <div class="card-body">
       <form [formGroup]="loginForm" class="form" (ngSubmit)="onLogin(f)">
           <div class="form-group">
-              <label for="uname1">User</label>
+              <label>User</label>
               <input type="text" class="form-control" 
               name="uname1" id="uname1" formControlName="username">
               <div *ngIf="loginForm.controls.username.invalid && (loginForm.controls.username.dirty || loginForm.controls.username.touched)">
                 <small class="error-message-inputs" *ngIf="loginForm.controls.username.errors.required">
-                  This field is required
+                  Este campo esrequerido
                 </small>
               </div>
           </div>
@@ -19,7 +19,7 @@
               <input type="password" class="form-control" id="pwd1" formControlName="password">
               <div *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)">
                 <small class="error-message-inputs" *ngIf="loginForm.controls.password.errors.required">
-                  This field is required
+                  Este campo esrequerido
                 </small>
               </div>
           </div>

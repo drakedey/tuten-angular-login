@@ -20,7 +20,7 @@ export class UserEditComponent implements OnInit {
   @Input()
   set user(user: User) {
     this._user = user;
-    const description = user ? user.description ? user.description : 'missing description' : '';
+    const description = user ? user.lastName ? user.lastName : 'missing description' : '';
     this.descriptionForm.get('description').patchValue(description);
     if (this.canEdit === false) { this.descriptionForm.get('description').disable(); }
     this.changeDetectorRef.detectChanges();

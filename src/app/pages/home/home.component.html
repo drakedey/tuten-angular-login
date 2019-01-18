@@ -1,0 +1,43 @@
+<div class="mt-5 jumbotron">
+  <h1>Welcome, {{ user?.username }}</h1>
+  <hr>
+  <h3>Your info</h3>
+  <ul>
+    <li>Name: {{ user?.name }}</li>
+    <li>Role: {{ user?.role }}</li>
+    <li>Country: {{ user?.country }}</li>
+    <li>Description: {{ user?.description }}</li>
+  </ul>
+<div class="mb-5">
+  <h3>Update Your description</h3>
+  <div *ngIf="onEdit === true" 
+      class="alert alert-dismissible fade show"  
+      [ngClass] = "{'alert-success': editStatus, 'alert-danger': !editStatus}"
+      role="alert">
+        <strong>{{ editStatus ? 'Success!' : 'Error!' }}</strong> {{ editStatus ? 'Description updated Succesfully' : 'Something went wrong!' }}
+        <button type="button" (click) = "this.onEdit = false" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+  <form [formGroup]="descriptionForm" class="form-inline" (ngSubmit)="onDescriptionSubmit(f)">
+      <div class="form-group mx-sm-3 mb-2">
+        <input class="card-text"
+        class="form-control"
+        formControlName="description"/>
+      </div>
+      <button type="submit" class="btn btn-primary mb-2" [disabled] = "descriptionForm.invalid || !descriptionForm.dirty">Update Description</button>
+    </form>
+  <div class="ml-5" *ngIf="descriptionForm.controls.description.invalid && (descriptionForm.controls.description.dirty || descriptionForm.controls.description.touched)">
+    <small class="error-message-inputs" *ngIf="descriptionForm.controls.description.errors.required">
+      This field is required
+    </small>
+  </div>
+</div>
+</div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <app-user-data *ngIf="user.canObserve" [currentUser]="user" [users] = "users"></app-user-data>
+      </div>
+    </div>
+  </div>

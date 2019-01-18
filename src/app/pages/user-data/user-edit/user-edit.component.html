@@ -1,0 +1,34 @@
+<div class="card  mt-5" *ngIf="_user !== null; else noUser">
+    <div class="card-body">
+      <div *ngIf="onEdit === true" 
+      class="alert alert-dismissible fade show"  
+      [ngClass] = "{'alert-success': editStatus, 'alert-danger': !editStatus}"
+      role="alert">
+        <strong>{{ editStatus ? 'Success!' : 'Error!' }}</strong> {{ editStatus ? 'Description updated Succesfully' : 'Something went wrong!' }}
+        <button type="button" (click) = "this.onEdit = false" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <h5 class="card-title">{{ _user.name ? _user.name : 'nmissing name' }}</h5>
+      <form [formGroup]="descriptionForm" class="form-inline" (ngSubmit)="onDescriptionSubmit(f)">
+        <div class="form-group mx-sm-3 mb-2">
+          <input
+          [ngClass]="{'form-control': canEdit, 'form-control-plaintext': !canEdit}"
+          formControlName="description"/>
+        </div>
+        <button *ngIf="canEdit" type="submit" class="btn btn-primary mb-2" [disabled] = "descriptionForm.invalid || !descriptionForm.dirty">Update Description</button>
+      </form>
+      <div class="ml-5" *ngIf="descriptionForm.controls.description.invalid && (descriptionForm.controls.description.dirty || descriptionForm.controls.description.touched)">
+        <small class="error-message-inputs" *ngIf="descriptionForm.controls.description.errors.required"  >
+          This field is required.
+        </small>
+      </div>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><span class="font-weight-bold">Username: </span>{{ _user.username ? _user.username : 'missing username' }}</li>
+    </ul>
+  </div>
+
+<ng-template #noUser>
+  <h3 class="text-center mt-5">No user Selected</h3>
+</ng-template>

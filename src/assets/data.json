@@ -1,0 +1,67 @@
+{
+  "data": [{
+      "username": "john.doe",
+      "name": "John Doe",
+      "password": "12345",
+      "role": "USER",
+      "country": "United States",
+      "description": "This is a test"
+    },
+    {
+      "username": "admin",
+      "name": "System Administrator",
+      "password": "admin",
+      "role": "ADMINISTRATOR",
+      "country": "United States",
+      "description": "This is the admin"
+    },
+    {
+      "username": "james.smith",
+      "name": "James Smith",
+      "password": "12345",
+      "role": "OBSERVER",
+      "country": "Italy",
+      "description": "null"
+    },
+    {
+      "username": "jane.doe",
+      "name": "Jane Doe",
+      "password": "12345",
+      "role": "USER",
+      "country": "France",
+      "description": null
+    },
+    {
+      "username": "mary_smith",
+      "name": "Mary Smith",
+      "password": "12345",
+      "role": "USER",
+      "country": "Venezuela",
+      "description": "This is a test"
+    },
+    {
+      "username": "david_jones123",
+      "name": "David Jones",
+      "password": "12345",
+      "role": "USER",
+      "country": "Venezuela",
+      "description": "This is a test"
+    },
+    {
+      "username": "yrsa93",
+      "name": "Yrsa Sigurðardóttir",
+      "password": "12345",
+      "role": "USER",
+      "country": "Iceland",
+      "description": "This is a test"
+    },
+    {
+      "username": "test1",
+      "name": "User Test",
+      "password": "12345",
+      "role": null,
+      "country": "Japan",
+      "description": "This is a test"
+    }
+  ]
+}

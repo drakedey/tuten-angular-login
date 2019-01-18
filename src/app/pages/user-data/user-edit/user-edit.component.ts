@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, AfterViewChecked, ChangeDetectorRef, AfterContentChecked, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 
-import { User } from 'src/app/shared/user.model';
 import { DataproviderService } from 'src/app/core/http/dataprovider.service';
+import { User } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-user-edit',
@@ -38,13 +38,13 @@ export class UserEditComponent implements OnInit {
     this.onEdit = false;
   }
 
-  onDescriptionSubmit(f: NgForm) {
-    const description = this.descriptionForm.get('description').value;
-    const result = this.dataProviderService.updateDescription(this._user, description);
-    this.onEdit = true;
-    this.editStatus = result;
-    this.changeDetectorRef.detectChanges();
-    return;
-  }
+  // onDescriptionSubmit(f: NgForm) {
+  //   const description = this.descriptionForm.get('description').value;
+  //   const result = this.dataProviderService.updateDescription(this._user, description);
+  //   this.onEdit = true;
+  //   this.editStatus = result;
+  //   this.changeDetectorRef.detectChanges();
+  //   return;
+  // }
 
 }

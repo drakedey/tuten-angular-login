@@ -24,9 +24,9 @@
               </div>
           </div>
           <div class="col-12 text-center mt-3 mb-3" *ngIf="errorObj.status">
-            <small class="error-message-inputs"> {{ errorObj.message }} </small>
+            <small class="error-message-inputs"> {{ errorObj.error }} </small>
           </div>
-          <button type="submit" class="btn btn-success float-right" id="btnLogin" [disabled] = "loginForm.invalid">Login</button>
+          <button type="submit" class="btn btn-success float-right" id="btnLogin" [disabled] = "loginForm.invalid || isLoging">Login</button>
       </form>
   </div>
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { User } from 'src/app/shared/user.model';
+import { User } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-user-list',

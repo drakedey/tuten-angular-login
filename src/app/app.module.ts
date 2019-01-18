@@ -6,11 +6,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { UserDataComponent } from './pages/user-data/user-data.component';
-import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { UserListComponent } from './pages/user-data/user-list/user-list.component';
 import { UserEditComponent } from './pages/user-data/user-edit/user-edit.component';
+import { LoginComponent } from './pages/login/login.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { UserEditComponent } from './pages/user-data/user-edit/user-edit.compone
     AppRoutingModule,
     ReactiveFormsModule,
     HttpModule,
-    JsonpModule
+    JsonpModule,
+    HttpClientModule
   ],
   providers: [FormBuilder],
   bootstrap: [AppComponent]

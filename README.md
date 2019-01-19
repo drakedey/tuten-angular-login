@@ -1,27 +1,29 @@
-# Prueba
+**Prueba Tuten Anguilar**
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.2.
+Este repo contiene la aplicacion web para la prueba Full Stack SSr para Tuten
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Requerimientos.
 
-## Code scaffolding
+Para poder levantar este ambiente es necesario los siguientes programas y/o dependencias:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. Node.js y npm ve a la pagina web (https://nodejs.org/en/) y descarga el instalador.
+2. Git (Opcional si quieres clonar el repositorio).
+3. Angular CLI
 
-## Build
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Guia de instalacion.
 
-## Running unit tests
+1. Descarga o clona el repositorio.
+2. En la carpeta raiz del servidor abre el terminal propmt.
+3. Ejecuta npm install para instalar dependencias.
+4. Una vez intaladas las dependencias, ejecuta npm start para iniciar el ambiente en tu ordenador.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+---
 
-## Running end-to-end tests
+## Consideraciones.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Por defecto la aplicacion se podra visualizar en la siguiente direccion localhost (127.0.0.1) en el puerto 4200
+asegurate de que el puerto este libre.

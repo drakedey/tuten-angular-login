@@ -43,7 +43,7 @@
             </form>
         </div>
         <div class="col-12 mt-5">
-            <table class="table table-striped" *ngIf = "(bookingDataFiletered?.length > 0 && !searching); else noItemsToShow">
+            <table class="table table-striped" *ngIf = "(bookingDataFiletered?.length > 0 && !searching)">
                 <thead>
                     <tr>
                     <th scope="col">BookingId</th>
@@ -63,9 +63,12 @@
                     </tr>
                 </tbody>
             </table>
-            <ng-template #noItemsToShow>
+            <div *ngIf="!searching && bookingDataFiletered?.length === 0">
                 <h3 class="text-center">No hay Bookings para visualizar</h3>
-            </ng-template>
+            </div>
+            <div *ngIf="searching">
+                <h3 class="text-center">Buscando</h3>
+            </div>
         </div>
     </div>
 </div>

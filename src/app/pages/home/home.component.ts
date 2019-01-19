@@ -72,6 +72,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     .subscribe( data => {
       this.searching = true;
       this.unmodifiedBookingData = data;
+      this.filterForm.patchValue({
+        'bookingId': '',
+        'minPrice': '',
+        'maxPrice': '',
+      })
       this.filterData(this.unmodifiedBookingData);
       this.searching = false;
       this.changeDetectorRef.detectChanges();
@@ -106,11 +111,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     const minPriceFilter = this.filterForm.get('minPrice').value;
     const maxPriceFilter = this.filterForm.get('maxPrice').value;
     const emptyCondition = checkEmpty(minPriceFilter) && checkEmpty(maxPriceFilter);
-    const minAndMaxCondition = minPriceFilter < maxPriceFilter;
+    const minAndMaxCondition = emptyCondition ? minPriceFilter < maxPriceFilter : true;
     if (emptyCondition && minAndMaxCondition) {
       this.bookingDataFiletered = this.bookingDataFiletered.filter(bookingEl => {
         const { bookingPrice } = bookingEl;
-        return bookingPrice > minPriceFilter && bookingPrice < maxPriceFilter;
+        return bookingPrice >= minPriceFilter && bookingPrice <= maxPriceFilter;
       });
     } else if ((this.filterForm.get('minPrice').touched || this.filterForm.get('maxPrice').touched) && !minAndMaxCondition) {
       console.log('gere');
